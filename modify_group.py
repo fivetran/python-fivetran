@@ -1,0 +1,34 @@
+import json
+import requests
+import environ
+from requests.auth import HTTPBasicAuth
+
+def modify_group():
+
+    env = environ.Env()
+    environ.Env.read_env()
+
+    # your group ID
+    group_id = ''
+
+    API_KEY = env("API_KEY")
+    API_SECRET = env("API_SECRET")
+
+    base64 = HTTPBasicAuth(API_KEY, API_SECRET)
+    endpoint = 'https://api.fivetran.com/v1/groups/{}'.format(group_id)
+
+    # Adjust the payload settings to
+    # reflect your settings from the
+    # documentation.
+    #
+    # https://fivetran.com/docs/rest-api
+    #
+    # You need to insert your values next
+    # to the appropiate key.
+    # toggle these values for your spec.
+    payload = {
+        "name": "NEW_GROUP_NAME" # enter your group name
+    }
+
+    request = requests.patch(url=endpoint, auth=base64, json=payload).json()
+    print(request)
