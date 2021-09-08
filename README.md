@@ -2,9 +2,9 @@
 
 `python-fivetran` is the official Fivetran SDK for the Python programming language.
 
-Check out our (CHANGELOG)[https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/CHANGELOG.md] for information about the latest bug fixes, updates, and features added to the SDK.
+Check out our [CHANGELOG](https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/CHANGELOG.md) for information about the latest bug fixes, updates, and features added to the SDK.
 
-It is advised that you read the (documentation)[https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/README.md] before using the SDK.
+It is advised that you read the [documentation](https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/README.md) before using the SDK.
 
 ## Installation
 ```
@@ -25,7 +25,7 @@ API_SECRET=yoursecret
 ```
 
 ## Examples
-You can find examples of these API calls in an actual application (here)[https://github.com/fivetran-connorbrereton/Django-Code-Sample]
+You can find examples of these API calls in an actual application [here](https://github.com/fivetran-connorbrereton/Django-Code-Sample)
 
 ## API List
 
