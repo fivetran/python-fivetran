@@ -43,7 +43,7 @@ REST API Endpoint | REST API Version | Development Status
 
 ### [Group Management API](https://fivetran.com/docs/rest-api/groups)
 
-REST API Endpoint | REST API Version | SDK Service
+REST API Endpoint | REST API Version | Development Status
 --- | --- | ---
 [Create a group](https://fivetran.com/docs/rest-api/groups#createagroup) | v1 | Implemented
 [List all groups](https://fivetran.com/docs/rest-api/groups#listallgroups) | v1 | Implemented
@@ -57,7 +57,7 @@ REST API Endpoint | REST API Version | SDK Service
 
 ### [Destination Management API](https://fivetran.com/docs/rest-api/destinations)
 
-REST API Endpoint | REST API Version | SDK Service/Config
+REST API Endpoint | REST API Version | Development Status
 --- | --- | ---
 [Create a destination](https://fivetran.com/docs/rest-api/destinations#createadestination) | v1 | Implemented
 [Retrieve destination details](https://fivetran.com/docs/rest-api/destinations#retrievedestinationdetails) | v1 | Implemented
@@ -68,7 +68,7 @@ REST API Endpoint | REST API Version | SDK Service/Config
 
 ### [Connector Management API](https://fivetran.com/docs/rest-api/connectors)
 
-REST API Endpoint | REST API Version | SDK Service/Config/Auth
+REST API Endpoint | REST API Version | Development Status
 --- | --- | ---
 [Retrieve source metadata](https://fivetran.com/docs/rest-api/connectors#retrievesourcemetadata) | v1 | Implemented
 [Create a connector](https://fivetran.com/docs/rest-api/connectors#createaconnector) | v2 | Implemented
@@ -90,7 +90,7 @@ REST API Endpoint | REST API Version | SDK Service/Config/Auth
 [Connect Card](https://fivetran.com/docs/rest-api/connectors/connect-card) | v1 | Implemented
 
 ### [Certificate Management API](https://fivetran.com/docs/rest-api/certificates)
-REST API Endpoint | REST API Version | SDK Service
+REST API Endpoint | REST API Version | Development Status
 --- | --- | ---
 [Approve a connector certificate](https://fivetran.com/docs/rest-api/certificates#approveaconnectorcertificate) | v1 | Implemented
 [Approve a connector fingerprint](https://fivetran.com/docs/rest-api/certificates#approveaconnectorfingerprint) | v1 | Implemented
