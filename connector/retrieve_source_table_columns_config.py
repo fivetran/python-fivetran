@@ -20,4 +20,5 @@ def retrieve_columns_config():
     endpoint = 'https://api.fivetran.com/v1/connectors/{}/schemas/{}/tables/{}/columns'.format(connector_id, schema, table)
 
     request = requests.get(url=endpoint, auth=base64).json()
-    print(json.dumps(request))
+    
+    return request

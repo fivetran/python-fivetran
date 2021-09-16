@@ -18,4 +18,5 @@ def retrieve_user_details():
     endpoint = 'https://api.fivetran.com/v1/users/{}'.format(user_id)
 
     request = requests.get(url=endpoint, auth=base64).json()
-    print(json.dumps(request))
+    
+    return request

@@ -30,5 +30,6 @@ def add_user_to_group():
         'role': 'Admin'
     }
 
-    response = requests.post(url=endpoint, auth=base64, json=payload).json()
-    print(response)
+    request = requests.post(url=endpoint, auth=base64, json=payload).json()
+    
+    return request

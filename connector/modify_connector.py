@@ -40,4 +40,5 @@ def modify_connector():
     }
 
     request = requests.patch(url=endpoint, auth=base64, json=payload).json()
-    print(request)
+    
+    return request

@@ -25,4 +25,5 @@ def delete_connector():
     endpoint = 'https://api.fivetran.com/v1/connectors/{}'.format(connector_id)
 
     request = requests.delete(url=endpoint, auth=base64).json()
-    print(request)
+    
+    return request

@@ -29,4 +29,5 @@ def run_destination_setup_tests():
     }
 
     request = requests.post(url=endpoint, auth=base64, json=payload).json()
-    print(request)
+    
+    return request

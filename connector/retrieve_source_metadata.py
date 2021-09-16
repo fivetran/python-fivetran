@@ -15,4 +15,5 @@ def retrieve_source_metadata():
     endpoint = 'https://api.fivetran.com/v1/metadata/connectors'
 
     request = requests.get(url=endpoint, auth=base64).json()
-    print(request)
+    
+    return request

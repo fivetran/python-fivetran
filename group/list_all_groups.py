@@ -30,4 +30,4 @@ def list_all_groups():
             groups_list.extend(response_paged["data"]["items"])
         response = response_paged
 
-print(json.dumps(groups_list))
+    return groups_list

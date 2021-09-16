@@ -18,4 +18,5 @@ def delete_destination():
     endpoint = 'https://api.fivetran.com/v1/destinations/{}'.format(destination_id)
 
     request = requests.delete(url=endpoint, auth=base64).json()
-    print(request)
+    
+    return request

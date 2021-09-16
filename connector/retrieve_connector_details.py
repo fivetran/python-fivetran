@@ -18,4 +18,5 @@ def retrieve_connector_details():
     endpoint = 'https://api.fivetran.com/v1/connectors/{}'.format(connector_id)
 
     request = requests.get(url=endpoint, auth=base64).json()
-    print(request)
+    
+    return request

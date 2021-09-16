@@ -1,5 +1,6 @@
 import requests
 import environ
+from requests.api import request
 from requests.auth import HTTPBasicAuth
 
 def approve_destination_cert():
@@ -26,5 +27,6 @@ def approve_destination_cert():
         'encoded_cert': 'YOUR_BASE64_CERT'
     }
 
-    response = requests.post(url=endpoint, auth=base64, json=payload).json()
-    print(response)
+    request = requests.post(url=endpoint, auth=base64, json=payload).json()
+    
+    return request

@@ -18,4 +18,5 @@ def delete_user():
     endpoint = 'https://api.fivetran.com/v1/users/{}'.format(user_id)
 
     request = requests.delete(url=endpoint, auth=base64).json()
-    print(request)
+    
+    return request

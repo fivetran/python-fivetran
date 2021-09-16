@@ -26,5 +26,6 @@ def approve_destination_fingerprint():
         'public_key': 'YOUR_PUBLIC_KEY'
     }
 
-    response = requests.post(url=endpoint, auth=base64, json=payload).json()
-    print(response)
+    request = requests.post(url=endpoint, auth=base64, json=payload).json()
+    
+    return request

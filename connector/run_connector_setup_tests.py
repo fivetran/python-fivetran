@@ -28,4 +28,5 @@ def run_connector_setup_tests():
     }
 
     request = requests.post(url=endpoint, auth=base64, json=payload).json()
-    print(request)
+    
+    return request

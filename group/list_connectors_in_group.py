@@ -34,4 +34,4 @@ def list_connectors_in_group():
             connectors_list.extend(response_paged["data"]['items'])
         response = response_paged
 
-print(json.dumps(connectors_list))
+    return connectors_list

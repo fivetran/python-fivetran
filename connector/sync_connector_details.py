@@ -18,4 +18,5 @@ def sync_connector_data():
     endpoint = 'https://api.fivetran.com/v1/connectors/{}/force'.format(connector_id)
 
     request = requests.get(url=endpoint, auth=base64).json()
-    print(json.dumps(request))
+    
+    return request

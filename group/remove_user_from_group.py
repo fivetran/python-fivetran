@@ -19,4 +19,5 @@ def remove_user_from_group():
     endpoint = 'https://api.fivetran.com/v1/groups/{}/users/{}'.format(group_id, user_id)
 
     request = requests.delete(url=endpoint, auth=base64).json()
-    print(request)
+
+    return request

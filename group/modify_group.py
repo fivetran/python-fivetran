@@ -31,4 +31,5 @@ def modify_group():
     }
 
     request = requests.patch(url=endpoint, auth=base64, json=payload).json()
-    print(request)
+
+    return request

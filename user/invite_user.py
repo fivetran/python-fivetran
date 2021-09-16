@@ -1,5 +1,6 @@
 import requests
 import environ
+from requests.api import request
 from requests.auth import HTTPBasicAuth
 
 def invite_user():
@@ -29,5 +30,6 @@ def invite_user():
         'role': 'Owner' # enter the role from option of 'ReadOnly' or 'Owner'
     }
 
-    response = requests.post(url=endpoint, auth=base64, json=payload).json()
-    print(response)
+    request = requests.post(url=endpoint, auth=base64, json=payload).json()
+    
+    return request

@@ -30,4 +30,4 @@ def list_all_users():
             users_list.extend(response_paged["data"]["items"])
         response = response_paged
 
-print(json.dumps(users_list))
+    return users_list

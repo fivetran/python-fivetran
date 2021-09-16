@@ -1,5 +1,6 @@
 import requests
 import environ
+from requests.api import request
 from requests.auth import HTTPBasicAuth
 
 def approve_connector_fingerprint():
@@ -26,5 +27,6 @@ def approve_connector_fingerprint():
         'public_key': 'YOUR_PUBLIC_KEY'
     }
 
-    response = requests.post(url=endpoint, auth=base64, json=payload).json()
-    print(response)
+    request = requests.post(url=endpoint, auth=base64, json=payload).json()
+    
+    return request

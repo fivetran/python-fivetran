@@ -1,3 +1,4 @@
+import re
 import requests
 import environ
 from requests.auth import HTTPBasicAuth
@@ -17,4 +18,5 @@ def delete_group():
     endpoint = 'https://api.fivetran.com/v1/groups/{}'.format(group_id)
 
     request = requests.delete(url=endpoint, auth=base64).json()
-    print(request)
+    
+    return request

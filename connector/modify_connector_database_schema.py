@@ -1,4 +1,5 @@
 import json
+from types import resolve_bases
 import requests
 import environ
 from requests.auth import HTTPBasicAuth
@@ -52,4 +53,5 @@ def modify_connector_database_schema():
     }
     
     request = requests.patch(url=endpoint, auth=base64, json=payload).json()
-    print(request)
+    
+    return request
