@@ -12,7 +12,7 @@ class Group(FivetranApi):
     
   
   def create(self, name):
-    endpoint = fivetranapi._uri_builder(
+    endpoint = _uri_builder(
       BASE_ENDPOINT,
       self.getVersion(),
       GROUPS_ENDPOINT
@@ -24,7 +24,7 @@ class Group(FivetranApi):
 
     r = requests.post(
       endpoint,
-      auth=self._auth,
+      auth=self.getAuth(),
       json=payload
     ).json()
 
@@ -32,6 +32,259 @@ class Group(FivetranApi):
 
     return r
 
-  
+  def list(self, cursor=None, limit=100):
+    endpoint = _uri_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT
+    )
+
+    if cursor is not None:
+      endpoint = "{}?cursor={}".format(
+        endpoint,
+        cursor
+      )
+
+    endpoint = "{}?limit={}".format(
+      endpoint,
+      limit
+    )
+
+    r = requests.get(
+      endpoint,
+      auth=self.getAuth()
+    ).json()
+
+    self.debug(r)
+
+    return r
+
+  def listAll(self):
+    '''example of an how an SDK can provide more value by writing
+    helper functions for common operations.
+    e.g., I want to list all the groups without having 
+    to paginate myself'''
+
+    #default cursor
+    cursor = None
+
+    #get first page
+    r = self.list(
+      cursor=cursor,
+      limit=100
+    )
+
+    #check if we're done, if False, we skip the while loop
+    cursorExists = 'next_cursor' in r['data'].keys()
+
+    #if the cursor exists then set it as the new cursor
+    if cursorExists:
+      cursor = r['data']['next_cursor']
+
+    while cursorExists:
+      #we have a new cursor so get get next page and so on
+      tmp = self.list(
+        cursor=cursor,
+        limit=100
+      )
+      
+      #add the new items to the first page
+      r['data']['items'].extend(
+        tmp['data']['items']
+      )
+
+      #check if we're done, if not set the new cursor
+      cursorExists = 'next_cursor' in tmp['data'].keys()
+      if cursorExists:
+        cursor = tmp['data']['next_cursor']
+
+    return r
+
+  def getDetails(self, groupId):
+    endpoint = _uri_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT,
+      _id=groupId
+    )
+
+    r = requests.get(
+      endpoint,
+      auth=self.getAuth()
+    ).json()
+
+    self.debug(r)
+
+    return r
+
+  def modify(self, groupId, name):
+    endpoint = _uri_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT,
+      _id=groupId
+    )
+
+    payload = {
+      "name": name
+    }
+
+    r = requests.patch(
+      endpoint,
+      auth=self.getAuth(),
+      json=payload
+    ).json()
+
+    self.debug(r)
+
+    return r
+
+  def listConnectors(self, groupId, cursor=None, limit=100, schema=None):
+    endpoint = _uri_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT,
+      _id=groupId,
+      _params='connectors'
+    )
+
+    payload = {
+      "limit": limit
+    }
+
+    if cursor is not None:
+      payload['cursor'] = cursor
+
+    if schema is not None:
+      payload['schema'] = schema
+
+    r = requests.get(
+      endpoint,
+      auth=self.getAuth(),
+      json=payload
+    ).json()
+
+    self.debug(r)
+
+    return r
+
+  def listAllConnectors(self, groupId, schema=None):
+    pass
+
+  def listUsers(self, groupId, cursor=None, limit=100):
+    endpoint = _uri_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT,
+      _id=groupId,
+      _params='users'
+    )
+
+    payload = {
+      "limit": limit
+    }
+
+    if cursor is not None:
+      payload['cursor'] = cursor
+
+    r = requests.get(
+      endpoint,
+      auth=self.getAuth(),
+      json=payload
+    ).json()
+
+    self.debug(r)
+
+    return r
+
+  def listAllUsers(self, groupId):
+    pass
+
+  def addUser(self, groupId, email, role):
+    endpoint = _uri_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT,
+      _id=groupId,
+      _params='users'
+    )
+
+    payload = {
+      "email": email,
+      "role": role
+    }
+
+    r = requests.get(
+      endpoint,
+      auth=self.getAuth(),
+      json=payload
+    ).json()
+
+    self.debug(r)
+
+    return r    
+
+
+  def removeUser(self, groupId, userId):
+    endpoint = _uri_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT,
+      _id=groupId,
+      _params='users/{}'.format(
+        userId
+      )
+    )
+
+    r = requests.delete(
+      endpoint,
+      auth=self.getAuth()
+    ).json()
+
+    self.debug(r)
+
+    return r
+
+  def removeUsers(self, groupId, userIds):
+    results = []
+    for userId in userIds:
+      r = self.removeUser(
+        groupId, 
+        userId
+      )
+
+      results.append(r)
+
+    return results
+
+  def delete(self, groupId):
+    endpoint = _uri_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT,
+      _id=groupId
+    )
+
+    r = requests.delete(
+      endpoint,
+      auth=self.getAuth()
+    ).json()
+
+    self.debug(r)
+
+    return r
+
+
+if __name__ == '__main__':
+  g = Group(
+    debug=True
+  )
+
+  r = g.listAll()
+
+  print(len(r['data']['items']))
+
+
+
 
     

@@ -1,3 +1,7 @@
+import os
+import requests
+import json
+
 BASE_ENDPOINT = 'https://api.fivetran.com'
 GROUPS_ENDPOINT = 'groups'
 DESTINATIONS_ENDPOINT = 'destinations'
@@ -19,7 +23,7 @@ def _uri_builder(base_endpoint, version, api_endpoint, _id=None, _params=None):
       _id
     )
 
-  if params is not None:
+  if _params is not None:
     uri = "{}/{}".format(
       uri,
       _params
@@ -28,13 +32,13 @@ def _uri_builder(base_endpoint, version, api_endpoint, _id=None, _params=None):
   return uri
 
 class FivetranApi:
-  def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False)
+  def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False):
     self._version = self._set_api_version(version)
     self._api_key = self._set_api_key(apiKey)
     self._api_secret = self._set_api_secret(apiKey)
     self._api_endpoint = None
     self._auth = requests.auth.HTTPBasicAuth(
-      self._api_key
+      self._api_key,
       self._api_secret
     )
     self._debug = debug
