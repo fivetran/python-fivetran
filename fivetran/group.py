@@ -39,16 +39,16 @@ class Group(FivetranApi):
       GROUPS_ENDPOINT
     )
 
-    if cursor is not None:
-      endpoint = "{}?cursor={}".format(
-        endpoint,
-        cursor
-      )
-
     endpoint = "{}?limit={}".format(
       endpoint,
       limit
     )
+
+    if cursor is not None:
+      endpoint = "{}&cursor={}".format(
+        endpoint,
+        cursor
+      )
 
     r = requests.get(
       endpoint,
@@ -71,7 +71,7 @@ class Group(FivetranApi):
     #get first page
     r = self.list(
       cursor=cursor,
-      limit=100
+      limit=1000
     )
 
     #check if we're done, if False, we skip the while loop
@@ -85,7 +85,7 @@ class Group(FivetranApi):
       #we have a new cursor so get get next page and so on
       tmp = self.list(
         cursor=cursor,
-        limit=100
+        limit=1000
       )
       
       #add the new items to the first page
@@ -148,23 +148,30 @@ class Group(FivetranApi):
       _params='connectors'
     )
 
-    payload = {
-      "limit": limit
-    }
-
-    if cursor is not None:
-      payload['cursor'] = cursor
+    endpoint = "{}?limit={}".format(
+      endpoint,
+      limit
+    )
 
     if schema is not None:
-      payload['schema'] = schema
+      endpoint = "{}&schema={}".format(
+        endpoint,
+        schema
+      )
+
+    if cursor is not None:
+      endpoint = "{}&cursor={}".format(
+        endpoint,
+        cursor
+      )
 
     r = requests.get(
       endpoint,
-      auth=self.getAuth(),
-      json=payload
+      auth=self.getAuth()
     ).json()
 
     self.debug(r)
+    print(endpoint)
 
     return r
 
@@ -180,17 +187,20 @@ class Group(FivetranApi):
       _params='users'
     )
 
-    payload = {
-      "limit": limit
-    }
+    endpoint = "{}?limit={}".format(
+      endpoint,
+      limit
+    )
 
     if cursor is not None:
-      payload['cursor'] = cursor
+      endpoint = "{}&cursor={}".format(
+        endpoint,
+        cursor
+      )
 
     r = requests.get(
       endpoint,
-      auth=self.getAuth(),
-      json=payload
+      auth=self.getAuth()
     ).json()
 
     self.debug(r)
@@ -280,10 +290,7 @@ if __name__ == '__main__':
     debug=True
   )
 
-  r = g.listAll()
-
-  print(len(r['data']['items']))
-
+  r = g.listConnectors('photograph_scalp', schema='s3.mock')
 
 
 
