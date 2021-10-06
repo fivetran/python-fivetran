@@ -1,5 +1,6 @@
 import requests
-from fivetranapi import FivetranApi, _uri_builder, BASE_ENDPOINT, GROUPS_ENDPOINT
+
+from fivetran.fivetranapi import FivetranApi, _uri_builder, BASE_ENDPOINT, GROUPS_ENDPOINT
 
 class Group(FivetranApi):
   def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False):
@@ -290,7 +291,7 @@ if __name__ == '__main__':
     debug=True
   )
 
-  r = g.listConnectors('photograph_scalp', schema='s3.mock')
+  r = g.listConnectors('photograph_scalp')
 
 
 

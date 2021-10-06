@@ -10,8 +10,8 @@ with open("README.md", "r", encoding="utf-8") as rm:
   long_description = rm.read()
 
 setuptools.setup(
-  name='python-fivetran',
-  version='1.0.0',
+  name='fivetran',
+  version=version,
   description='Python SDK for the Fivetran REST API',
   long_description=long_description,
   long_description_content_type='text/markdown',
