@@ -1,6 +1,6 @@
 import requests
 
-from fivetran.fivetranapi import FivetranApi, _uri_builder, BASE_ENDPOINT, GROUPS_ENDPOINT
+from fivetran.fivetranapi import FivetranApi, _url_builder, BASE_ENDPOINT, GROUPS_ENDPOINT, _param_builder
 
 class Group(FivetranApi):
   def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False):
@@ -10,119 +10,66 @@ class Group(FivetranApi):
       version=version, 
       debug=debug
     )
-    
+
+    self._url = _url_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      GROUPS_ENDPOINT
+    )
   
   def create(self, name: str) -> dict:
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT
-    )
-
     payload = {
       "name": name
     }
 
-    r = requests.post(
-      endpoint,
-      auth=self.getAuth(),
-      json=payload
-    ).json()
-
-    self.debug(r)
+    r = self._post(
+      self.getUrl(),
+      payload
+    )
 
     return r
 
-  def list(self, cursor=None, limit=100):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT
+  def list(self, cursor: str = None, limit: int = 100) -> dict:
+    param_dict = {
+      "limit": limit,
+      "cursor": cursor
+
+    }
+    query_params = _param_builder(param_dict)
+
+    endpoint = _url_builder(
+      self.getUrl(),
+      _query_params=query_params
     )
 
-    endpoint = "{}?limit={}".format(
-      endpoint,
-      limit
+    r = self._get(
+      endpoint
     )
-
-    if cursor is not None:
-      endpoint = "{}&cursor={}".format(
-        endpoint,
-        cursor
-      )
-
-    r = requests.get(
-      endpoint,
-      auth=self.getAuth()
-    ).json()
-
-    self.debug(r)
 
     return r
 
-  def listAll(self):
-    '''example of an how an SDK can provide more value by writing
-    helper functions for common operations.
-    e.g., I want to list all the groups without having 
-    to paginate myself'''
-
-    #default cursor
-    cursor = None
-
-    #get first page
-    r = self.list(
-      cursor=cursor,
-      limit=1000
+  def listAll(self) -> dict:
+    r = self._iterator(
+      self.list
     )
-
-    #check if we're done, if False, we skip the while loop
-    cursorExists = 'next_cursor' in r['data'].keys()
-
-    #if the cursor exists then set it as the new cursor
-    if cursorExists:
-      cursor = r['data']['next_cursor']
-
-    while cursorExists:
-      #we have a new cursor so get get next page and so on
-      tmp = self.list(
-        cursor=cursor,
-        limit=1000
-      )
-      
-      #add the new items to the first page
-      r['data']['items'].extend(
-        tmp['data']['items']
-      )
-
-      #check if we're done, if not set the new cursor
-      cursorExists = 'next_cursor' in tmp['data'].keys()
-      if cursorExists:
-        cursor = tmp['data']['next_cursor']
 
     return r
 
-  def getDetails(self, groupId):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT,
+  def getDetails(self, groupId: str) -> dict:
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=groupId
     )
 
-    r = requests.get(
-      endpoint,
-      auth=self.getAuth()
-    ).json()
-
-    self.debug(r)
+    r = self._get(
+      endpoint
+    )
 
     return r
 
-  def modify(self, groupId, name):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT,
+  def modify(self, groupId: str, name: str) -> dict:
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=groupId
     )
 
@@ -130,94 +77,79 @@ class Group(FivetranApi):
       "name": name
     }
 
-    r = requests.patch(
+    r = self._patch(
       endpoint,
-      auth=self.getAuth(),
       json=payload
-    ).json()
-
-    self.debug(r)
+    )
 
     return r
 
-  def listConnectors(self, groupId, cursor=None, limit=100, schema=None):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT,
+  def listConnectors(self, groupId: str, cursor: str = None, limit: int = 100, schema: str = None) -> dict:
+    param_dict = {
+      "limit": limit,
+      "cursor": cursor,
+      "schema": schema
+
+    }
+    query_params = _param_builder(param_dict)
+
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=groupId,
-      _params='connectors'
+      _path='connectors',
+      _query_params=query_params
     )
 
-    endpoint = "{}?limit={}".format(
-      endpoint,
-      limit
+    r = self._get(
+      endpoint
     )
-
-    if schema is not None:
-      endpoint = "{}&schema={}".format(
-        endpoint,
-        schema
-      )
-
-    if cursor is not None:
-      endpoint = "{}&cursor={}".format(
-        endpoint,
-        cursor
-      )
-
-    r = requests.get(
-      endpoint,
-      auth=self.getAuth()
-    ).json()
-
-    self.debug(r)
-    print(endpoint)
 
     return r
 
-  def listAllConnectors(self, groupId, schema=None):
-    pass
-
-  def listUsers(self, groupId, cursor=None, limit=100):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT,
-      _id=groupId,
-      _params='users'
+  def listAllConnectors(self, groupId: str, schema: str = None) -> dict:
+    r = self._iterator(
+      self.listConnectors,
+      groupId=groupId,
+      schema=schema
     )
-
-    endpoint = "{}?limit={}".format(
-      endpoint,
-      limit
-    )
-
-    if cursor is not None:
-      endpoint = "{}&cursor={}".format(
-        endpoint,
-        cursor
-      )
-
-    r = requests.get(
-      endpoint,
-      auth=self.getAuth()
-    ).json()
-
-    self.debug(r)
 
     return r
 
-  def listAllUsers(self, groupId):
-    pass
+  def listUsers(self, groupId: str, cursor: str = None, limit: int = 100) -> dict:
+    param_dict = {
+      "limit": limit,
+      "cursor": cursor
+    }
 
-  def addUser(self, groupId, email, role):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT,
+    query_params = _param_builder(param_dict)
+
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=groupId,
-      _params='users'
+      _path='users',
+      _query_params=query_params
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    return r
+
+  def listAllUsers(self, groupId: str) -> dict:
+    r = self._iterator(
+      self.listUsers,
+      groupId=groupId,
+      schema=schema
+    )
+
+    return r
+
+  def addUser(self, groupId: str, email: str, role: str) -> dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=groupId,
+      _path='users'
     )
 
     payload = {
@@ -225,65 +157,63 @@ class Group(FivetranApi):
       "role": role
     }
 
-    r = requests.get(
+    r = self._post(
       endpoint,
-      auth=self.getAuth(),
-      json=payload
-    ).json()
-
-    self.debug(r)
+      payload
+    )
 
     return r    
 
 
-  def removeUser(self, groupId, userId):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT,
+  def removeUser(self, groupId: str, userId: str) -> dict:
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=groupId,
-      _params='users/{}'.format(
+      _path='users/{}'.format(
         userId
       )
     )
 
-    r = requests.delete(
-      endpoint,
-      auth=self.getAuth()
-    ).json()
-
-    self.debug(r)
+    r = self._delete(
+      endpoint
+    )
 
     return r
 
-  def removeUsers(self, groupId, userIds):
-    results = []
+  def removeUsers(self, groupId: str, userIds: list) -> dict:
+    results = {}
     for userId in userIds:
       r = self.removeUser(
         groupId, 
         userId
       )
 
-      results.append(r)
+      results[userId] = r
 
     return results
 
-  def delete(self, groupId):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      GROUPS_ENDPOINT,
+  def delete(self, groupId: str) -> dict:
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=groupId
     )
 
-    r = requests.delete(
-      endpoint,
-      auth=self.getAuth()
-    ).json()
-
-    self.debug(r)
+    r = self._delete(
+      endpoint
+    )
 
     return r
+
+  def deleteBulk(self, groupIds: list) -> dict:
+    results = {}
+    for groupId in groupIds:
+      r = self.delete(
+        groupId
+      )
+
+      results[groupId] = r
+
+    return results
 
 
 if __name__ == '__main__':
@@ -291,7 +221,11 @@ if __name__ == '__main__':
     debug=True
   )
 
-  r = g.create('TypeTest')
+  r = g.listAll()
+
+  g._print(r)
+
+  print(len(r['response']['data']['items']))
 
 
 
