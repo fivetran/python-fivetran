@@ -12,7 +12,7 @@ class Group(FivetranApi):
     )
     
   
-  def create(self, name):
+  def create(self, name: str) -> dict:
     endpoint = _uri_builder(
       BASE_ENDPOINT,
       self.getVersion(),
@@ -291,7 +291,7 @@ if __name__ == '__main__':
     debug=True
   )
 
-  r = g.listConnectors('photograph_scalp')
+  r = g.create('TypeTest')
 
 
 
