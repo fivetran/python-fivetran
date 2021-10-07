@@ -1,6 +1,6 @@
 import requests
 
-from fivetran.fivetranapi import FivetranApi, _uri_builder, BASE_ENDPOINT, DESTINATION_ENDPOINT
+from fivetran.fivetranapi import FivetranApi, _url_builder, BASE_ENDPOINT, DESTINATIONS_ENDPOINT
 
 class Destination(FivetranApi):
   def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False):
@@ -10,84 +10,93 @@ class Destination(FivetranApi):
       version=version, 
       debug=debug
     )
+
+    self._url = _url_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      DESTINATIONS_ENDPOINT
+    )
+
   
-  def create(self, group_id, service, time_zone_offset, config):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      DESTINATION_ENDPOINT
-    )
-
+  def create(self, groupId: str, service: str, timeZoneOffset: str, config: dict,
+      region: str = 'US', trustCertificates: bool = False, trustFingerprints: bool = False, runSetupTests: bool = True
+    ) -> dict:
     payload = {
-      "group_id": group_id,
+      "group_id": groupId,
       "service": service,
-      "time_zone_offset": time_zone_offset,
-      "config": config
+      "time_zone_offset": timeZoneOffset,
+      "config": config,
+      "region": region,
+      "trust_certificates": trustCertificates,
+      "trust_fingerprints": trustFingerprints,
+      "run_setup_tests": runSetupTests
     }
 
-    r = requests.post(
+    r = self._post(
       endpoint,
-      auth=self.getAuth(),
-      json=payload
-    ).json()
+      payload
+    )
 
     self.debug(r)
 
     return r
 
-  def getDetails(self, destinationId):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      DESTINATION_ENDPOINT,
+  def getDetails(self, destinationId: str) -> dict:
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=destinationId
     )
 
-    r = requests.get(
+    r = self._get(
       endpoint,
-      auth=self.getAuth()
-    ).json()
+    )
 
     self.debug(r)
 
     return r
 
-  def modify(self, destinationId, region, time_zone_offset, config):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      DESTINATION_ENDPOINT,
+  def modify(self, destinationId: str, config: str = None, region: str = None, timeZoneOffset: str = None, 
+      trustCertificates: bool = False, trustFingerprints: bool = False, runSetupTests: bool = True
+    ) -> dict:
+
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=destinationId
     )
 
     payload = {
-      "region": region,
-      "time_zone_offset": time_zone_offset,
-      "config": config
+      "trust_certificates": trustCertificates,
+      "trust_fingerprints": trustFingerprints,
+      "run_setup_tests": runSetupTests
     }
 
-    r = requests.patch(
+    if region is not None:
+      payload['region'] = region
+
+    if timeZoneOffset is not None:
+      payload['time_zone_offset'] = timeZoneOffset
+
+    if config is not None:
+      payload['config'] = config
+
+    r = self._patch(
       endpoint,
-      auth=self.getAuth(),
-      json=payload
-    ).json()
+      payload
+    )
 
     self.debug(r)
 
     return r
 
-def delete(self, destinationId):
-    endpoint = _uri_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      DESTINATION_ENDPOINT,
+def delete(self, destinationId: str) -> str:
+    endpoint = _url_builder(
+      self.getUrl(),
       _id=destinationId
     )
 
-    r = requests.delete(
+    r = self._delete(
       endpoint,
-      auth=self.getAuth()
-    ).json()
+    )
 
     self.debug(r)
 

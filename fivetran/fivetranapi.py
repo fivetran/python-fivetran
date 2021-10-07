@@ -84,7 +84,7 @@ class FivetranApi:
 
   def getUrl(self):
     return self._url
-    
+
   def _set_api_version(self, version):
     if version is None:
       version = 'v1'
