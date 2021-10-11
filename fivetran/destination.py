@@ -2,114 +2,125 @@ import requests
 
 from fivetran.fivetranapi import FivetranApi, _url_builder, BASE_ENDPOINT, DESTINATIONS_ENDPOINT
 
+
 class Destination(FivetranApi):
-  def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False):
-    super().__init__(
-      apiKey=apiKey, 
-      apiSecret=apiSecret, 
-      version=version, 
-      debug=debug
-    )
+    def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False):
+        super().__init__(
+            apiKey=apiKey,
+            apiSecret=apiSecret,
+            version=version,
+            debug=debug
+        )
 
-    self._url = _url_builder(
-      BASE_ENDPOINT,
-      self.getVersion(),
-      DESTINATIONS_ENDPOINT
-    )
+        self._url = _url_builder(
+            BASE_ENDPOINT,
+            self.getVersion(),
+            DESTINATIONS_ENDPOINT
+        )
 
-  
-  def create(self, groupId: str, service: str, timeZoneOffset: str, config: dict,
-      region: str = 'US', trustCertificates: bool = False, trustFingerprints: bool = False, runSetupTests: bool = True
-    ) -> dict:
-    payload = {
-      "group_id": groupId,
-      "service": service,
-      "time_zone_offset": timeZoneOffset,
-      "config": config,
-      "region": region,
-      "trust_certificates": trustCertificates,
-      "trust_fingerprints": trustFingerprints,
-      "run_setup_tests": runSetupTests
-    }
+    def create(
+            self,
+            groupId: str,
+            service: str,
+            timeZoneOffset: str,
+            config: dict,
+            region: str = 'US',
+            trustCertificates: bool = False,
+            trustFingerprints: bool = False,
+            runSetupTests: bool = True) -> dict:
 
-    r = self._post(
-      endpoint,
-      payload
-    )
+        payload = {
+            "group_id": groupId,
+            "service": service,
+            "time_zone_offset": timeZoneOffset,
+            "config": config,
+            "region": region,
+            "trust_certificates": trustCertificates,
+            "trust_fingerprints": trustFingerprints,
+            "run_setup_tests": runSetupTests
+        }
 
-    self.debug(r)
+        r = self._post(
+            endpoint,
+            payload
+        )
 
-    return r
+        self.debug(r)
 
-  def getDetails(self, destinationId: str) -> dict:
-    endpoint = _url_builder(
-      self.getUrl(),
-      _id=destinationId
-    )
+        return r
 
-    r = self._get(
-      endpoint,
-    )
+    def getDetails(self, destinationId: str) -> dict:
+        endpoint = _url_builder(
+            self.getUrl(),
+            _id=destinationId
+        )
 
-    self.debug(r)
+        r = self._get(
+            endpoint,
+        )
 
-    return r
+        self.debug(r)
 
-  def modify(self, destinationId: str, config: str = None, region: str = None, timeZoneOffset: str = None, 
-      trustCertificates: bool = False, trustFingerprints: bool = False, runSetupTests: bool = True
-    ) -> dict:
+        return r
 
-    endpoint = _url_builder(
-      self.getUrl(),
-      _id=destinationId
-    )
+    def modify(
+            self,
+            destinationId: str,
+            config: str = None,
+            region: str = None,
+            timeZoneOffset: str = None,
+            trustCertificates: bool = False,
+            trustFingerprints: bool = False,
+            runSetupTests: bool = True) -> dict:
 
-    payload = {
-      "trust_certificates": trustCertificates,
-      "trust_fingerprints": trustFingerprints,
-      "run_setup_tests": runSetupTests
-    }
+        endpoint = _url_builder(
+            self.getUrl(),
+            _id=destinationId
+        )
 
-    if region is not None:
-      payload['region'] = region
+        payload = {
+            "trust_certificates": trustCertificates,
+            "trust_fingerprints": trustFingerprints,
+            "run_setup_tests": runSetupTests
+        }
 
-    if timeZoneOffset is not None:
-      payload['time_zone_offset'] = timeZoneOffset
+        if region is not None:
+            payload['region'] = region
 
-    if config is not None:
-      payload['config'] = config
+        if timeZoneOffset is not None:
+            payload['time_zone_offset'] = timeZoneOffset
 
-    r = self._patch(
-      endpoint,
-      payload
-    )
+        if config is not None:
+            payload['config'] = config
 
-    self.debug(r)
+        r = self._patch(
+            endpoint,
+            payload
+        )
 
-    return r
+        self.debug(r)
 
-def delete(self, destinationId: str) -> str:
-    endpoint = _url_builder(
-      self.getUrl(),
-      _id=destinationId
-    )
+        return r
 
-    r = self._delete(
-      endpoint,
-    )
 
-    self.debug(r)
+    def delete(self, destinationId: str) -> str:
+        endpoint = _url_builder(
+            self.getUrl(),
+            _id=destinationId
+        )
 
-    return r
+        r = self._delete(
+            endpoint
+        )
+
+        self.debug(r)
+
+        return r
 
 
 if __name__ == '__main__':
-  d = Destination(
-    debug=True
-  )
+    d = Destination(
+        debug=True
+    )
 
-  dd = d.getDetails('photograph_scalp')
-
-
-
-    
+    dd = d.getDetails('photograph_scalp')
