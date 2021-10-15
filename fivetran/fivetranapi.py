@@ -114,7 +114,7 @@ class FivetranApi:
 
   def _print(self, r):
     print(
-      json.dumps(;
+      json.dumps(
         r,
         indent=4,
         sort_keys=True,
