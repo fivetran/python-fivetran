@@ -27,7 +27,8 @@ class Destination(FivetranApi):
             region: str = 'US',
             trustCertificates: bool = False,
             trustFingerprints: bool = False,
-            runSetupTests: bool = True) -> dict:
+            runSetupTests: bool = True
+          ) -> dict:
 
         payload = {
             "group_id": groupId,
@@ -71,7 +72,8 @@ class Destination(FivetranApi):
             timeZoneOffset: str = None,
             trustCertificates: bool = False,
             trustFingerprints: bool = False,
-            runSetupTests: bool = True) -> dict:
+            runSetupTests: bool = True
+          ) -> dict:
 
         endpoint = _url_builder(
             self.getUrl(),
@@ -103,7 +105,7 @@ class Destination(FivetranApi):
         return r
 
 
-    def delete(self, destinationId: str) -> str:
+    def delete(self, destinationId: str) -> dict:
         endpoint = _url_builder(
             self.getUrl(),
             _id=destinationId
