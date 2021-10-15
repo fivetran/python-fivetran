@@ -81,6 +81,18 @@ class FivetranApi:
       self._api_secret
     )
     self._debug = debug
+    self._headers = {
+      'content_type': 'application/json'
+    }
+    self._v2_headers = {
+      'content_type': 'application/json;version=2'
+    }
+
+  def getHeaders(self):
+    return self._headers
+
+  def getV2Headers(self):
+    return self._v2_headers
 
   def getUrl(self):
     return self._url
@@ -102,7 +114,7 @@ class FivetranApi:
 
   def _print(self, r):
     print(
-      json.dumps(
+      json.dumps(;
         r,
         indent=4,
         sort_keys=True,
@@ -122,11 +134,12 @@ class FivetranApi:
 
     return output
 
-  def _post(self, endpoint, payload=None):
+  def _post(self, endpoint, payload=None, headers=None):
     r = requests.post(
       endpoint,
       auth=self.getAuth(),
-      json=payload
+      json=payload,
+      headers=headers
     )
 
     r = self._build_requests_output(
@@ -139,10 +152,11 @@ class FivetranApi:
 
     return r
 
-  def _get(self, endpoint):
+  def _get(self, endpoint, headers=None):
     r = requests.get(
       endpoint,
-      auth=self.getAuth()
+      auth=self.getAuth(),
+      headers=headers
     )
 
     r = self._build_requests_output(
@@ -155,11 +169,12 @@ class FivetranApi:
 
     return r
 
-  def _patch(self, endpoint, payload=None):
+  def _patch(self, endpoint, payload=None, headers=None):
     r = requests.patch(
       endpoint,
       auth=self.getAuth(),
-      json=payload
+      json=payload,
+      headers=headers
     )
 
     r = self._build_requests_output(
@@ -172,11 +187,12 @@ class FivetranApi:
 
     return r
 
-  def _put(self, endpoint, payload=None):
+  def _put(self, endpoint, payload=None, headers=None):
     r = requests.put(
       endpoint,
       auth=self.getAuth(),
-      json=payload
+      json=payload,
+      headers=None
     )
 
     r = self._build_requests_output(
@@ -190,10 +206,11 @@ class FivetranApi:
 
     return r
 
-  def _delete(self, endpoint, payload=None):
+  def _delete(self, endpoint, payload=None, headers=None):
     r = requests.delete(
       endpoint,
-      auth=self.getAuth()
+      auth=self.getAuth(),
+      headers=None
     )
 
     r = self._build_requests_output(

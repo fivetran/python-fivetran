@@ -18,6 +18,34 @@ class Connector(FivetranApi):
         CONNECTORS_ENDPOINT
     )
 
+    self._metadata_url = _url_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      CONNECTOR_METADATA_ENDPOINT
+    )
+
+  def getMetadataUrl(self):
+    return self._metadata_url
+
+  def getSourceMetadata(self, cursor=None, limit=100):
+    param_dict = {
+      "limit": limit,
+      "cursor": cursor
+
+    }
+    query_params = _param_builder(param_dict)
+
+    endpoint = _url_builder(
+      self.getMetadataUrl(),
+      _query_params=query_params
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    return r
+
   def create(self, groupId: str, 
     service: str,
     config: dict,
