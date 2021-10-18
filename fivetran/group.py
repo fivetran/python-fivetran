@@ -227,6 +227,8 @@ if __name__ == '__main__':
 
   print(len(r['response']['data']['items']))
 
+  g.listUsers('photograph_scalp')
+
 
 
     

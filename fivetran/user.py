@@ -138,6 +138,12 @@ class User(FivetranApi):
 
     return results
 
+if __name__ == '__main__':
+  u = User(debug=True)
+
+  u.list()
+
+  u.getDetails('competence_elucidation')
 
 
 

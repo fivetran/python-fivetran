@@ -1,6 +1,6 @@
 import requests
 
-from fivetran.fivetranapi import FivetranApi, _url_builder, BASE_ENDPOINT, CONNECTORS_ENDPOINT, CONNECTOR_METADATA_ENDPOINT
+from fivetran.fivetranapi import FivetranApi, _url_builder, BASE_ENDPOINT, CONNECTORS_ENDPOINT, CONNECTOR_METADATA_ENDPOINT, _param_builder
 
 class InvalidResponseVersion(Exception): pass
 
@@ -64,6 +64,13 @@ class Connector(FivetranApi):
 
     return r
 
+  def getAllSourceMetadata(self):
+    r = self._iterator(
+      self.getSourceMetadata
+    )
+
+    return r
+
   def getConfigMetadata(self, service: str) -> dict:
     endpoint = _url_builder(
       self.getMetadataUrl(),
@@ -124,13 +131,13 @@ class Connector(FivetranApi):
 
   def getDetails(self, connectorId: str, responseVersion: int = 2) -> dict:
     endpoint = _url_builder(
-      self.getMetadataUrl(),
+      self.getUrl(),
       _id=connectorId
     )
 
     r = self._get(
       endpoint,
-      headers=self._set_response_headers()
+      headers=self._set_response_headers(responseVersion)
     )
 
     self.debug(r)
@@ -220,7 +227,8 @@ class Connector(FivetranApi):
   def runSetupTests(self, connectorId: str, trustCertificates: bool = False, trustFingerprints: bool = False) -> dict:
     endpoint = _url_builder(
       self.getUrl(),
-      _id=connectorId
+      _id=connectorId,
+      _path='test'
     )
 
     payload = {
@@ -386,8 +394,12 @@ class Connector(FivetranApi):
 
 
 if __name__ == '__main__':
-  d = Connector(
+  c = Connector(
       debug=True
   )
 
-  dd = d.syncConnector('asdf  ')
+  c.getConfigMetadata('salesforce')
+
+  c.getDetails('advocating_maple')
+
+  c.syncConnector('advocating_maple')
