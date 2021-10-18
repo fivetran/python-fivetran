@@ -207,7 +207,7 @@ class Group(FivetranApi):
   def deleteBulk(self, groupIds: list) -> dict:
     results = {}
     for groupId in groupIds:
-      r = self.delete(
+      r = self._delete(
         groupId
       )
 

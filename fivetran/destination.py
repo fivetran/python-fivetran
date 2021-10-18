@@ -105,7 +105,7 @@ class Destination(FivetranApi):
         return r
 
 
-    def delete(self, destinationId: str) -> dict:
+    def delete(self, destinationId: str) -> dict;:
         endpoint = _url_builder(
             self.getUrl(),
             _id=destinationId

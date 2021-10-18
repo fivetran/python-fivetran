@@ -9,6 +9,7 @@ USERS_ENDPOINT = 'users'
 CONNECTORS_ENDPOINT = 'connectors'
 CONNECTOR_METADATA_ENDPOINT = 'metadata/connectors'
 CERTIFICATES_ENDPOINT = 'certificates'
+FINGERPRINTS_ENDPOINT = 'fingerprints'
 
 def _url_builder(base_endpoint, version=None, api_endpoint=None, _id=None, _path=None, _query_params=None):
   url = base_endpoint
@@ -225,7 +226,7 @@ class FivetranApi:
 
   def _iterator(self, func, **kwargs):
     cursor = None
-    limit = 100
+    limit = 1000
 
     r = func(
       cursor=cursor,
@@ -268,3 +269,12 @@ class FivetranApi:
 
   def getVersion(self):
     return self._version
+
+  def getApiKey(self):
+    return self._api_key
+
+  def getApiSecret(self):
+    return self._api_secret
+
+  def getDebug(self):
+    return self._debug
