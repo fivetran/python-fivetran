@@ -1,0 +1,1463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>fivetran.connector API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fivetran.connector</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import requests
+
+from fivetran.fivetranapi import FivetranApi, _url_builder, BASE_ENDPOINT, CONNECTORS_ENDPOINT, CONNECTOR_METADATA_ENDPOINT, _param_builder
+
+class InvalidResponseVersion(Exception): pass
+
+class Connector(FivetranApi):
+  def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False):
+    super().__init__(
+        apiKey=apiKey,
+        apiSecret=apiSecret,
+        version=version,
+        debug=debug
+    )
+
+    self._url = _url_builder(
+        BASE_ENDPOINT,
+        self.getVersion(),
+        CONNECTORS_ENDPOINT
+    )
+
+    self._metadata_url = _url_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      CONNECTOR_METADATA_ENDPOINT
+    )
+
+  def _set_response_headers(self, version):
+    accepted_versions = [1, 2]
+
+    if version == 1:
+      return self.getHeaders()
+    elif version == 2:
+      return self.getV2Headers()
+    else:
+      raise InvalidRepsonseVersion(
+        &#34;Version must be one of {}&#34;.format(
+          accepted_versions
+        )
+      )
+
+
+  def getMetadataUrl(self):
+    return self._metadata_url
+
+  def getSourceMetadata(self, cursor: str = None, limit: int = 100) -&gt; dict:
+    param_dict = {
+      &#34;limit&#34;: limit,
+      &#34;cursor&#34;: cursor
+
+    }
+    query_params = _param_builder(param_dict)
+
+    endpoint = _url_builder(
+      self.getMetadataUrl(),
+      _query_params=query_params
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def getAllSourceMetadata(self):
+    r = self._iterator(
+      self.getSourceMetadata
+    )
+
+    return r
+
+  def getConfigMetadata(self, service: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getMetadataUrl(),
+      _path=service
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def create(self, groupId: str, 
+    service: str,
+    config: dict,
+    auth: dict = None,
+    paused: bool = False,
+    pauseAfterTrial: bool = False,
+    trustCertificates: bool = False,
+    trustFingerprints: bool = False,
+    runSetupTests: bool = True,
+    syncFrequency: int = 360, #6 hours
+    dailySyncTime: str = None
+  ) -&gt; dict:
+
+    endpoint = _url_builder(
+        self.getUrl()
+    )
+
+    payload = {
+      &#34;group_id&#34;: groupId,
+      &#34;service&#34;: service,
+      &#34;config&#34;: config,
+      &#34;paused&#34;: paused,
+      &#34;pause_after_trial&#34;: pauseAfterTrial,
+      &#34;trust_certificates&#34;: trustCertificates,
+      &#34;trust_fingerprints&#34;: trustFingerprints,
+      &#34;run_setup_tests&#34;: runSetupTests,
+      &#34;sync_frequency&#34;: syncFrequency,
+    }
+
+    if auth is not None:
+      payload[&#39;auth&#39;] = auth
+
+    if dailySyncTime is not None:
+      payload[&#39;daily_sync_time&#39;] = dailySyncTime
+
+    r = self._post(
+        endpoint,
+        payload
+    )
+
+    self.debug(r)
+
+    return r
+
+  def getDetails(self, connectorId: str, responseVersion: int = 2) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId
+    )
+
+    r = self._get(
+      endpoint,
+      headers=self._set_response_headers(responseVersion)
+    )
+
+    self.debug(r)
+
+    return r
+
+  def modify(self, 
+    connectorId: str, 
+    config: dict = None,
+    auth: dict = None,
+    paused: bool = False,
+    pauseAfterTrial: bool = False,
+    trustCertificates: bool = False,
+    trustFingerprints: bool = False,
+    runSetupTests: bool = True,
+    syncFrequency: int = 360, #6 hours
+    dailySyncTime: str = None,
+    scheduleType: str = &#39;auto&#39;,
+    isHistoricalSync: bool = False
+  ) -&gt; dict:
+
+    endpoint = _url_builder(
+        self.getUrl(),
+        _id=connectorId
+    )
+
+    payload = {
+        &#34;paused&#34;: paused,
+        &#34;pause_after_trial&#34;: pauseAfterTrial,
+        &#34;trust_certificates&#34;: trustCertificates,
+        &#34;trust_fingerprints&#34;: trustFingerprints,
+        &#34;run_setup_tests&#34;: runSetupTests,
+        &#34;sync_frequency&#34;: syncFrequency,
+        &#34;schedule_type&#34;: scheduleType,
+        &#34;is_historical_sync&#34;: isHistoricalSync
+    }
+
+    if config is not None:
+      payload[&#39;config&#39;] = config
+
+    if auth is not None:
+      payload[&#39;auth&#39;] = auth
+
+    if dailySyncTime is not None:
+      payload[&#39;daily_sync_time&#39;] = dailySyncTime
+
+    r = self._patch(
+      endpoint,
+      payload
+    )
+
+    self.debug(r)
+
+    return r
+
+  def syncConnector(self, connectorId: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;force&#39;
+    )
+
+    r = self._post(
+      endpoint
+    )
+    
+    self.debug(r)
+
+    return r
+
+  def resyncTable(self, connectorId: str, config: dict) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/tables/resync&#39;
+    )
+
+    r = self._post(
+      endpoint,
+      config
+    )
+
+    self.debug(r)
+
+    return r
+
+  def runSetupTests(self, connectorId: str, trustCertificates: bool = False, trustFingerprints: bool = False) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;test&#39;
+    )
+
+    payload = {
+      &#34;trust_certificates&#34;: trustCertificates,
+      &#34;trust_fingerprints&#34;: trustCertificates
+    }
+
+    r = self._post(
+      endpoint,
+      payload
+    )
+
+    self.debug(r)
+
+    return r
+
+  def delete(self, connectorId: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id = connectorId
+    )
+
+    r = self._delete(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def deleteBulk(self, connectorIds:  list) -&gt; dict:
+    results = {}
+    for connectorId in connectorIds:
+      r = self.delete(
+        connectorId
+      )
+
+      results[connectorId] = r
+
+    return results
+
+  def getSchemaConfig(self, connectorId: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas&#39;
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def getTableConfig(self, connectorId: str, schemaName: str, tableName: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#34;schemas/{schemaName}/tables/{schemaName}/columns&#34;.format(
+        schemaName=schemaName,
+        tableName=tableName
+      )
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def reloadSchemaConfig(self, connectorId: str, excludeMode: str = &#39;PRESERVE&#39;) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/reload&#39;
+    )
+
+    payload = {
+      &#34;exclude_mode&#34;: excludeMode.upper()
+    }
+
+    r = self._post(
+      endpoint,
+      payload
+    )
+
+    self.debug(r)
+
+    return r
+
+  def modifySchemaConfig(self, connectorId: str, config: dict) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas&#39;
+    )
+
+    r = self._patch(
+      endpoint,
+      config
+    )
+
+    self.debug(r)
+
+    return r
+
+  def modifyDatabaseSchemaConfig(self, connectorId: str, schemaName: str, config: dict) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/{schemaName}&#39;.format(
+        schemaName=schemaName
+      )
+    )
+
+    r = self._patch(
+      endpoint,
+      config
+    )
+
+  def modifyTableConfig(self, connectorId: str, schemaName: str, tableName: str, config: dict) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/{schemaName}/tables/{tableName}&#39;.format(
+        schemaName=schemaName,
+        tableName=tableName
+      )
+    )
+
+    r = self._patch(
+      endpoint,
+      config
+    )
+
+    self.debug(r)
+
+    return r
+
+  def modifyColumnConfig(self, connectorId: str, schemaName: str, tableName: str, columnName: str, config) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/{schemaName}/tables/{tableName}/columns/{columnName}&#39;.format(
+        schemaName=schemaName,
+        tableName=tableName,
+        columnName=columnName
+      )
+    )
+
+    r = self._patch(
+      endpoint,
+      config
+    )
+
+    self.debug(r)
+
+    return r
+
+
+if __name__ == &#39;__main__&#39;:
+  c = Connector(
+      debug=True
+  )
+
+  c.getConfigMetadata(&#39;salesforce&#39;)
+
+  c.getDetails(&#39;advocating_maple&#39;)
+
+  c.syncConnector(&#39;advocating_maple&#39;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="fivetran.connector.Connector"><code class="flex name class">
+<span>class <span class="ident">Connector</span></span>
+<span>(</span><span>apiKey=None, apiSecret=None, version=None, debug=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Connector(FivetranApi):
+  def __init__(self, apiKey=None, apiSecret=None, version=None, debug=False):
+    super().__init__(
+        apiKey=apiKey,
+        apiSecret=apiSecret,
+        version=version,
+        debug=debug
+    )
+
+    self._url = _url_builder(
+        BASE_ENDPOINT,
+        self.getVersion(),
+        CONNECTORS_ENDPOINT
+    )
+
+    self._metadata_url = _url_builder(
+      BASE_ENDPOINT,
+      self.getVersion(),
+      CONNECTOR_METADATA_ENDPOINT
+    )
+
+  def _set_response_headers(self, version):
+    accepted_versions = [1, 2]
+
+    if version == 1:
+      return self.getHeaders()
+    elif version == 2:
+      return self.getV2Headers()
+    else:
+      raise InvalidRepsonseVersion(
+        &#34;Version must be one of {}&#34;.format(
+          accepted_versions
+        )
+      )
+
+
+  def getMetadataUrl(self):
+    return self._metadata_url
+
+  def getSourceMetadata(self, cursor: str = None, limit: int = 100) -&gt; dict:
+    param_dict = {
+      &#34;limit&#34;: limit,
+      &#34;cursor&#34;: cursor
+
+    }
+    query_params = _param_builder(param_dict)
+
+    endpoint = _url_builder(
+      self.getMetadataUrl(),
+      _query_params=query_params
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def getAllSourceMetadata(self):
+    r = self._iterator(
+      self.getSourceMetadata
+    )
+
+    return r
+
+  def getConfigMetadata(self, service: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getMetadataUrl(),
+      _path=service
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def create(self, groupId: str, 
+    service: str,
+    config: dict,
+    auth: dict = None,
+    paused: bool = False,
+    pauseAfterTrial: bool = False,
+    trustCertificates: bool = False,
+    trustFingerprints: bool = False,
+    runSetupTests: bool = True,
+    syncFrequency: int = 360, #6 hours
+    dailySyncTime: str = None
+  ) -&gt; dict:
+
+    endpoint = _url_builder(
+        self.getUrl()
+    )
+
+    payload = {
+      &#34;group_id&#34;: groupId,
+      &#34;service&#34;: service,
+      &#34;config&#34;: config,
+      &#34;paused&#34;: paused,
+      &#34;pause_after_trial&#34;: pauseAfterTrial,
+      &#34;trust_certificates&#34;: trustCertificates,
+      &#34;trust_fingerprints&#34;: trustFingerprints,
+      &#34;run_setup_tests&#34;: runSetupTests,
+      &#34;sync_frequency&#34;: syncFrequency,
+    }
+
+    if auth is not None:
+      payload[&#39;auth&#39;] = auth
+
+    if dailySyncTime is not None:
+      payload[&#39;daily_sync_time&#39;] = dailySyncTime
+
+    r = self._post(
+        endpoint,
+        payload
+    )
+
+    self.debug(r)
+
+    return r
+
+  def getDetails(self, connectorId: str, responseVersion: int = 2) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId
+    )
+
+    r = self._get(
+      endpoint,
+      headers=self._set_response_headers(responseVersion)
+    )
+
+    self.debug(r)
+
+    return r
+
+  def modify(self, 
+    connectorId: str, 
+    config: dict = None,
+    auth: dict = None,
+    paused: bool = False,
+    pauseAfterTrial: bool = False,
+    trustCertificates: bool = False,
+    trustFingerprints: bool = False,
+    runSetupTests: bool = True,
+    syncFrequency: int = 360, #6 hours
+    dailySyncTime: str = None,
+    scheduleType: str = &#39;auto&#39;,
+    isHistoricalSync: bool = False
+  ) -&gt; dict:
+
+    endpoint = _url_builder(
+        self.getUrl(),
+        _id=connectorId
+    )
+
+    payload = {
+        &#34;paused&#34;: paused,
+        &#34;pause_after_trial&#34;: pauseAfterTrial,
+        &#34;trust_certificates&#34;: trustCertificates,
+        &#34;trust_fingerprints&#34;: trustFingerprints,
+        &#34;run_setup_tests&#34;: runSetupTests,
+        &#34;sync_frequency&#34;: syncFrequency,
+        &#34;schedule_type&#34;: scheduleType,
+        &#34;is_historical_sync&#34;: isHistoricalSync
+    }
+
+    if config is not None:
+      payload[&#39;config&#39;] = config
+
+    if auth is not None:
+      payload[&#39;auth&#39;] = auth
+
+    if dailySyncTime is not None:
+      payload[&#39;daily_sync_time&#39;] = dailySyncTime
+
+    r = self._patch(
+      endpoint,
+      payload
+    )
+
+    self.debug(r)
+
+    return r
+
+  def syncConnector(self, connectorId: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;force&#39;
+    )
+
+    r = self._post(
+      endpoint
+    )
+    
+    self.debug(r)
+
+    return r
+
+  def resyncTable(self, connectorId: str, config: dict) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/tables/resync&#39;
+    )
+
+    r = self._post(
+      endpoint,
+      config
+    )
+
+    self.debug(r)
+
+    return r
+
+  def runSetupTests(self, connectorId: str, trustCertificates: bool = False, trustFingerprints: bool = False) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;test&#39;
+    )
+
+    payload = {
+      &#34;trust_certificates&#34;: trustCertificates,
+      &#34;trust_fingerprints&#34;: trustCertificates
+    }
+
+    r = self._post(
+      endpoint,
+      payload
+    )
+
+    self.debug(r)
+
+    return r
+
+  def delete(self, connectorId: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id = connectorId
+    )
+
+    r = self._delete(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def deleteBulk(self, connectorIds:  list) -&gt; dict:
+    results = {}
+    for connectorId in connectorIds:
+      r = self.delete(
+        connectorId
+      )
+
+      results[connectorId] = r
+
+    return results
+
+  def getSchemaConfig(self, connectorId: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas&#39;
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def getTableConfig(self, connectorId: str, schemaName: str, tableName: str) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#34;schemas/{schemaName}/tables/{schemaName}/columns&#34;.format(
+        schemaName=schemaName,
+        tableName=tableName
+      )
+    )
+
+    r = self._get(
+      endpoint
+    )
+
+    self.debug(r)
+
+    return r
+
+  def reloadSchemaConfig(self, connectorId: str, excludeMode: str = &#39;PRESERVE&#39;) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/reload&#39;
+    )
+
+    payload = {
+      &#34;exclude_mode&#34;: excludeMode.upper()
+    }
+
+    r = self._post(
+      endpoint,
+      payload
+    )
+
+    self.debug(r)
+
+    return r
+
+  def modifySchemaConfig(self, connectorId: str, config: dict) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas&#39;
+    )
+
+    r = self._patch(
+      endpoint,
+      config
+    )
+
+    self.debug(r)
+
+    return r
+
+  def modifyDatabaseSchemaConfig(self, connectorId: str, schemaName: str, config: dict) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/{schemaName}&#39;.format(
+        schemaName=schemaName
+      )
+    )
+
+    r = self._patch(
+      endpoint,
+      config
+    )
+
+  def modifyTableConfig(self, connectorId: str, schemaName: str, tableName: str, config: dict) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/{schemaName}/tables/{tableName}&#39;.format(
+        schemaName=schemaName,
+        tableName=tableName
+      )
+    )
+
+    r = self._patch(
+      endpoint,
+      config
+    )
+
+    self.debug(r)
+
+    return r
+
+  def modifyColumnConfig(self, connectorId: str, schemaName: str, tableName: str, columnName: str, config) -&gt; dict:
+    endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId,
+      _path=&#39;schemas/{schemaName}/tables/{tableName}/columns/{columnName}&#39;.format(
+        schemaName=schemaName,
+        tableName=tableName,
+        columnName=columnName
+      )
+    )
+
+    r = self._patch(
+      endpoint,
+      config
+    )
+
+    self.debug(r)
+
+    return r</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="fivetran.fivetranapi.FivetranApi" href="fivetranapi.html#fivetran.fivetranapi.FivetranApi">FivetranApi</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="fivetran.connector.Connector.create"><code class="name flex">
+<span>def <span class="ident">create</span></span>(<span>self, groupId: str, service: str, config: dict, auth: dict = None, paused: bool = False, pauseAfterTrial: bool = False, trustCertificates: bool = False, trustFingerprints: bool = False, runSetupTests: bool = True, syncFrequency: int = 360, dailySyncTime: str = None) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create(self, groupId: str, 
+  service: str,
+  config: dict,
+  auth: dict = None,
+  paused: bool = False,
+  pauseAfterTrial: bool = False,
+  trustCertificates: bool = False,
+  trustFingerprints: bool = False,
+  runSetupTests: bool = True,
+  syncFrequency: int = 360, #6 hours
+  dailySyncTime: str = None
+) -&gt; dict:
+
+  endpoint = _url_builder(
+      self.getUrl()
+  )
+
+  payload = {
+    &#34;group_id&#34;: groupId,
+    &#34;service&#34;: service,
+    &#34;config&#34;: config,
+    &#34;paused&#34;: paused,
+    &#34;pause_after_trial&#34;: pauseAfterTrial,
+    &#34;trust_certificates&#34;: trustCertificates,
+    &#34;trust_fingerprints&#34;: trustFingerprints,
+    &#34;run_setup_tests&#34;: runSetupTests,
+    &#34;sync_frequency&#34;: syncFrequency,
+  }
+
+  if auth is not None:
+    payload[&#39;auth&#39;] = auth
+
+  if dailySyncTime is not None:
+    payload[&#39;daily_sync_time&#39;] = dailySyncTime
+
+  r = self._post(
+      endpoint,
+      payload
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.delete"><code class="name flex">
+<span>def <span class="ident">delete</span></span>(<span>self, connectorId: str) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete(self, connectorId: str) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id = connectorId
+  )
+
+  r = self._delete(
+    endpoint
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.deleteBulk"><code class="name flex">
+<span>def <span class="ident">deleteBulk</span></span>(<span>self, connectorIds: list) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deleteBulk(self, connectorIds:  list) -&gt; dict:
+  results = {}
+  for connectorId in connectorIds:
+    r = self.delete(
+      connectorId
+    )
+
+    results[connectorId] = r
+
+  return results</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.getAllSourceMetadata"><code class="name flex">
+<span>def <span class="ident">getAllSourceMetadata</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getAllSourceMetadata(self):
+  r = self._iterator(
+    self.getSourceMetadata
+  )
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.getConfigMetadata"><code class="name flex">
+<span>def <span class="ident">getConfigMetadata</span></span>(<span>self, service: str) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getConfigMetadata(self, service: str) -&gt; dict:
+  endpoint = _url_builder(
+    self.getMetadataUrl(),
+    _path=service
+  )
+
+  r = self._get(
+    endpoint
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.getDetails"><code class="name flex">
+<span>def <span class="ident">getDetails</span></span>(<span>self, connectorId: str, responseVersion: int = 2) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getDetails(self, connectorId: str, responseVersion: int = 2) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId
+  )
+
+  r = self._get(
+    endpoint,
+    headers=self._set_response_headers(responseVersion)
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.getMetadataUrl"><code class="name flex">
+<span>def <span class="ident">getMetadataUrl</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getMetadataUrl(self):
+  return self._metadata_url</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.getSchemaConfig"><code class="name flex">
+<span>def <span class="ident">getSchemaConfig</span></span>(<span>self, connectorId: str) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getSchemaConfig(self, connectorId: str) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;schemas&#39;
+  )
+
+  r = self._get(
+    endpoint
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.getSourceMetadata"><code class="name flex">
+<span>def <span class="ident">getSourceMetadata</span></span>(<span>self, cursor: str = None, limit: int = 100) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getSourceMetadata(self, cursor: str = None, limit: int = 100) -&gt; dict:
+  param_dict = {
+    &#34;limit&#34;: limit,
+    &#34;cursor&#34;: cursor
+
+  }
+  query_params = _param_builder(param_dict)
+
+  endpoint = _url_builder(
+    self.getMetadataUrl(),
+    _query_params=query_params
+  )
+
+  r = self._get(
+    endpoint
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.getTableConfig"><code class="name flex">
+<span>def <span class="ident">getTableConfig</span></span>(<span>self, connectorId: str, schemaName: str, tableName: str) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getTableConfig(self, connectorId: str, schemaName: str, tableName: str) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#34;schemas/{schemaName}/tables/{schemaName}/columns&#34;.format(
+      schemaName=schemaName,
+      tableName=tableName
+    )
+  )
+
+  r = self._get(
+    endpoint
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.modify"><code class="name flex">
+<span>def <span class="ident">modify</span></span>(<span>self, connectorId: str, config: dict = None, auth: dict = None, paused: bool = False, pauseAfterTrial: bool = False, trustCertificates: bool = False, trustFingerprints: bool = False, runSetupTests: bool = True, syncFrequency: int = 360, dailySyncTime: str = None, scheduleType: str = 'auto', isHistoricalSync: bool = False) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def modify(self, 
+  connectorId: str, 
+  config: dict = None,
+  auth: dict = None,
+  paused: bool = False,
+  pauseAfterTrial: bool = False,
+  trustCertificates: bool = False,
+  trustFingerprints: bool = False,
+  runSetupTests: bool = True,
+  syncFrequency: int = 360, #6 hours
+  dailySyncTime: str = None,
+  scheduleType: str = &#39;auto&#39;,
+  isHistoricalSync: bool = False
+) -&gt; dict:
+
+  endpoint = _url_builder(
+      self.getUrl(),
+      _id=connectorId
+  )
+
+  payload = {
+      &#34;paused&#34;: paused,
+      &#34;pause_after_trial&#34;: pauseAfterTrial,
+      &#34;trust_certificates&#34;: trustCertificates,
+      &#34;trust_fingerprints&#34;: trustFingerprints,
+      &#34;run_setup_tests&#34;: runSetupTests,
+      &#34;sync_frequency&#34;: syncFrequency,
+      &#34;schedule_type&#34;: scheduleType,
+      &#34;is_historical_sync&#34;: isHistoricalSync
+  }
+
+  if config is not None:
+    payload[&#39;config&#39;] = config
+
+  if auth is not None:
+    payload[&#39;auth&#39;] = auth
+
+  if dailySyncTime is not None:
+    payload[&#39;daily_sync_time&#39;] = dailySyncTime
+
+  r = self._patch(
+    endpoint,
+    payload
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.modifyColumnConfig"><code class="name flex">
+<span>def <span class="ident">modifyColumnConfig</span></span>(<span>self, connectorId: str, schemaName: str, tableName: str, columnName: str, config) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def modifyColumnConfig(self, connectorId: str, schemaName: str, tableName: str, columnName: str, config) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;schemas/{schemaName}/tables/{tableName}/columns/{columnName}&#39;.format(
+      schemaName=schemaName,
+      tableName=tableName,
+      columnName=columnName
+    )
+  )
+
+  r = self._patch(
+    endpoint,
+    config
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.modifyDatabaseSchemaConfig"><code class="name flex">
+<span>def <span class="ident">modifyDatabaseSchemaConfig</span></span>(<span>self, connectorId: str, schemaName: str, config: dict) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def modifyDatabaseSchemaConfig(self, connectorId: str, schemaName: str, config: dict) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;schemas/{schemaName}&#39;.format(
+      schemaName=schemaName
+    )
+  )
+
+  r = self._patch(
+    endpoint,
+    config
+  )</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.modifySchemaConfig"><code class="name flex">
+<span>def <span class="ident">modifySchemaConfig</span></span>(<span>self, connectorId: str, config: dict) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def modifySchemaConfig(self, connectorId: str, config: dict) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;schemas&#39;
+  )
+
+  r = self._patch(
+    endpoint,
+    config
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.modifyTableConfig"><code class="name flex">
+<span>def <span class="ident">modifyTableConfig</span></span>(<span>self, connectorId: str, schemaName: str, tableName: str, config: dict) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def modifyTableConfig(self, connectorId: str, schemaName: str, tableName: str, config: dict) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;schemas/{schemaName}/tables/{tableName}&#39;.format(
+      schemaName=schemaName,
+      tableName=tableName
+    )
+  )
+
+  r = self._patch(
+    endpoint,
+    config
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.reloadSchemaConfig"><code class="name flex">
+<span>def <span class="ident">reloadSchemaConfig</span></span>(<span>self, connectorId: str, excludeMode: str = 'PRESERVE') ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reloadSchemaConfig(self, connectorId: str, excludeMode: str = &#39;PRESERVE&#39;) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;schemas/reload&#39;
+  )
+
+  payload = {
+    &#34;exclude_mode&#34;: excludeMode.upper()
+  }
+
+  r = self._post(
+    endpoint,
+    payload
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.resyncTable"><code class="name flex">
+<span>def <span class="ident">resyncTable</span></span>(<span>self, connectorId: str, config: dict) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def resyncTable(self, connectorId: str, config: dict) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;schemas/tables/resync&#39;
+  )
+
+  r = self._post(
+    endpoint,
+    config
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.runSetupTests"><code class="name flex">
+<span>def <span class="ident">runSetupTests</span></span>(<span>self, connectorId: str, trustCertificates: bool = False, trustFingerprints: bool = False) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def runSetupTests(self, connectorId: str, trustCertificates: bool = False, trustFingerprints: bool = False) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;test&#39;
+  )
+
+  payload = {
+    &#34;trust_certificates&#34;: trustCertificates,
+    &#34;trust_fingerprints&#34;: trustCertificates
+  }
+
+  r = self._post(
+    endpoint,
+    payload
+  )
+
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+<dt id="fivetran.connector.Connector.syncConnector"><code class="name flex">
+<span>def <span class="ident">syncConnector</span></span>(<span>self, connectorId: str) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def syncConnector(self, connectorId: str) -&gt; dict:
+  endpoint = _url_builder(
+    self.getUrl(),
+    _id=connectorId,
+    _path=&#39;force&#39;
+  )
+
+  r = self._post(
+    endpoint
+  )
+  
+  self.debug(r)
+
+  return r</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="fivetran.connector.InvalidResponseVersion"><code class="flex name class">
+<span>class <span class="ident">InvalidResponseVersion</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Common base class for all non-exit exceptions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InvalidResponseVersion(Exception): pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fivetran" href="index.html">fivetran</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="fivetran.connector.Connector" href="#fivetran.connector.Connector">Connector</a></code></h4>
+<ul class="">
+<li><code><a title="fivetran.connector.Connector.create" href="#fivetran.connector.Connector.create">create</a></code></li>
+<li><code><a title="fivetran.connector.Connector.delete" href="#fivetran.connector.Connector.delete">delete</a></code></li>
+<li><code><a title="fivetran.connector.Connector.deleteBulk" href="#fivetran.connector.Connector.deleteBulk">deleteBulk</a></code></li>
+<li><code><a title="fivetran.connector.Connector.getAllSourceMetadata" href="#fivetran.connector.Connector.getAllSourceMetadata">getAllSourceMetadata</a></code></li>
+<li><code><a title="fivetran.connector.Connector.getConfigMetadata" href="#fivetran.connector.Connector.getConfigMetadata">getConfigMetadata</a></code></li>
+<li><code><a title="fivetran.connector.Connector.getDetails" href="#fivetran.connector.Connector.getDetails">getDetails</a></code></li>
+<li><code><a title="fivetran.connector.Connector.getMetadataUrl" href="#fivetran.connector.Connector.getMetadataUrl">getMetadataUrl</a></code></li>
+<li><code><a title="fivetran.connector.Connector.getSchemaConfig" href="#fivetran.connector.Connector.getSchemaConfig">getSchemaConfig</a></code></li>
+<li><code><a title="fivetran.connector.Connector.getSourceMetadata" href="#fivetran.connector.Connector.getSourceMetadata">getSourceMetadata</a></code></li>
+<li><code><a title="fivetran.connector.Connector.getTableConfig" href="#fivetran.connector.Connector.getTableConfig">getTableConfig</a></code></li>
+<li><code><a title="fivetran.connector.Connector.modify" href="#fivetran.connector.Connector.modify">modify</a></code></li>
+<li><code><a title="fivetran.connector.Connector.modifyColumnConfig" href="#fivetran.connector.Connector.modifyColumnConfig">modifyColumnConfig</a></code></li>
+<li><code><a title="fivetran.connector.Connector.modifyDatabaseSchemaConfig" href="#fivetran.connector.Connector.modifyDatabaseSchemaConfig">modifyDatabaseSchemaConfig</a></code></li>
+<li><code><a title="fivetran.connector.Connector.modifySchemaConfig" href="#fivetran.connector.Connector.modifySchemaConfig">modifySchemaConfig</a></code></li>
+<li><code><a title="fivetran.connector.Connector.modifyTableConfig" href="#fivetran.connector.Connector.modifyTableConfig">modifyTableConfig</a></code></li>
+<li><code><a title="fivetran.connector.Connector.reloadSchemaConfig" href="#fivetran.connector.Connector.reloadSchemaConfig">reloadSchemaConfig</a></code></li>
+<li><code><a title="fivetran.connector.Connector.resyncTable" href="#fivetran.connector.Connector.resyncTable">resyncTable</a></code></li>
+<li><code><a title="fivetran.connector.Connector.runSetupTests" href="#fivetran.connector.Connector.runSetupTests">runSetupTests</a></code></li>
+<li><code><a title="fivetran.connector.Connector.syncConnector" href="#fivetran.connector.Connector.syncConnector">syncConnector</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="fivetran.connector.InvalidResponseVersion" href="#fivetran.connector.InvalidResponseVersion">InvalidResponseVersion</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
