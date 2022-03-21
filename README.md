@@ -1,10 +1,8 @@
 # Fivetran SDK for Python
 
-`python-fivetran` is the official Fivetran SDK for the Python programming language.
+Check out our [CHANGELOG](https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/CHANGELOG.md) for information about the latest bug fixes, updates, and features added to the code snippets.
 
-Check out our [CHANGELOG](https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/CHANGELOG.md) for information about the latest bug fixes, updates, and features added to the SDK.
-
-It is advised that you read the [documentation](https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/README.md) before using the SDK.
+It is advised that you read the [documentation](https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/README.md) alongside the code snippets.
 
 ## Installation
 ```
@@ -29,7 +27,7 @@ You can find examples of these API calls in an actual application [here](https:/
 
 ## API List
 
-The following Fivetran REST API endpoints are implemented by the Fivetran SDK for the Python programming language. 
+The following Fivetran REST API endpoints are implemented as code snippets in this repository. 
 
 ### [User Management API](https://fivetran.com/docs/rest-api/users)
 
