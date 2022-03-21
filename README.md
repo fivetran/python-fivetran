@@ -1,4 +1,4 @@
-# Fivetran SDK for Python
+# Fivetran API code snippets in Python
 
 Check out our [CHANGELOG](https://github.com/fivetran-connorbrereton/python-fivetran/blob/master/CHANGELOG.md) for information about the latest bug fixes, updates, and features added to the code snippets.
 
